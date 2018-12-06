@@ -1,0 +1,12 @@
+.container {
+  margin-top: 20px;
+}
+.page {
+  display: none;
+}
+.page-active {
+  display: block;
+}
+i {
+  font-family: 'Minion', 'sans-serif'
+}

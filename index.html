@@ -8,18 +8,20 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Bare - Start Bootstrap Template</title>
+    <title>Expectation Maximiation (EM)</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="home.css" rel="stylesheet">
 
   </head>
 
   <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-      <div class="container">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top"> -->
+      <!-- <div class="container">
         <a class="navbar-brand" href="#">Start Bootstrap</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -43,9 +45,562 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 
-    <!-- Page Content -->
+    <div class="container">
+       <div class="jumbotron page" id="page1">
+          <div class="container">
+             <h1 class="display-3">Expectation Maximization (EM)</h1>
+          <p class="lead">Usually, we can estimate the parameters of a Bayes Net when all the variables are observed.
+                          But, what if some variables are hidden?
+                          In those cases, expectation maximization (EM) is used to estimate parameters.</p>
+          <!-- <p><a class="btn btn-lg btn-success" href="https://www.solodev.com/blog/web-design/adding-pagination-to-your-website.stml" role="button">Learn More</a></p> -->
+          </div>
+       </div>
+       <div class="jumbotron page" id="page2">
+          <table>
+            <tbody>
+              <tr>
+                <td>
+                  <h1 class="display-3">The Compawny</h1>
+                  <p class="lead">Let's say we have a group of dog employees from two elite companies. We know that they each have the following traits:</p>
+                                  <ul class="list-group">
+                                    <li class="list-group-item">Gender: male (G=0) or female (G=1)</li>
+                                    <li class="list-group-item">Breed: Husky (B=0) or Shiba Inu (B=1)</li>
+                                    <li class="list-group-item">Executive: a regular employee (E=0) or company executive (E=1)</li>
+                                  </ul>
+                                  <p class="lead">We can observe these attributes about the dogs, but what we don't know is which company they belong to (C=0 or C=1).<br>
+                                  How do we estimate the probability of a dog belonging to one of the companies?</p>
+                </td>
+                <td>
+                  <img src="https://i.pinimg.com/originals/54/cf/9b/54cf9b8c1384b442dc9154e8f21344f1.jpg" width="400px">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- <p><a class="btn btn-lg btn-success" href="#" role="button">Sign up today</a></p> -->
+       </div>
+       <div class="jumbotron page" id="page3">
+          <h1 class="display-3">The Compawny</h1>
+          <img src="img/3.png" width="400px">
+          <p>For each dog, we observe that G &#8712; {0, 1}, B &#8712; {0, 1}, and E &#8712; {0, 1}, but C is hidden from us.</p>
+          <p>We have the following observed totals:</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col" colspan="2">G=0 (male)</th>
+                <th scope="col" colspan="2">G=1 (female)</th>
+              </tr>
+              <tr>
+                <th scope="col" colspan="2"></th>
+                <th scope="col">E=0 (regular)</th>
+                <th scope="col">E=1 (executive)</th>
+                <th scope="col">E=0 (regular)</th>
+                <th scope="col">E=1 (executive)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" colspan="2">B=0 (Husky)</th>
+                <td scope="col">322</th>
+                <td scope="col">52</th>
+                <td scope="col">150</th>
+                <td scope="col">24</th>
+              </tr>
+              <tr>
+                <th scope="row" colspan="2">B=1 (Shiba Inu)</th>
+                <td scope="col">197</th>
+                <td scope="col">68</th>
+                <td scope="col">471</th>
+                <td scope="col">73</th>
+              </tr>
+          </table>
+          <p>But we don't know anything about the relationship between the dogs and which company they belong to... and that's where EM comes in!</p>
+          <!-- <p>
+             <a class="btn btn-lg btn-primary" href="../../components/navbar" role="button">View navbar docs »</a>
+          </p> -->
+       </div>
+       <div class="jumbotron page" id="page4">
+          <h1 style="-webkit-user-select: auto;">EM: the E & the M</h1>
+          <p>EM is an iterative algorithm made up of two steps:</p>
+          <h2>The E-step: Expectation</h2>
+          <p class="lead" style="-webkit-user-select: auto;">Fill in expected values for missing data based on the observed data</p>
+          <h2>The M-step: Maximization</h2>
+          <p>Recompute parameters with ML formula, using the expected values entered in the E-step as if they were observed values.</p>
+          <p>These two steps repeatedly iterate, and with each step the values get closer and closer to the true parameters.</p>
+          <!-- <p style="-webkit-user-select: auto;"><a class="btn btn-lg btn-success" href="#" role="button" style="-webkit-user-select: auto;">Get started today</a></p> -->
+       </div>
+       <div class="jumbotron page" id="page5">
+          <h1 class="cover-heading">The Problem</h1>
+          <p>The probabilities we are trying to solve for in our model are the base probability and probability for one of each of the attributes, given both of the companies.
+             In other words, we are trying to solve for the probabilities <i>P(C=0)</i>, <i>P(G=0|C=0)</i>, <i>P(G=0|C=1)</i>, <i>P(B=0|C=0)</i>, <i>P(B=0|C=1)</i>, <i>P(E=0|C=0)</i>, and <i>P(E=0|C=1)</i>.</p>
+       </div>
+       <div class="jumbotron page" id="page6">
+          <h1 class="cover-heading">E-step</h1>
+          <p>For our E-step, we need to fill in the expected values of what we don't know (which is all of them)! Thus, we fill in the values randomly with valid probabilities.
+             Another option is to base the values off any beliefs we may have based on the currently observed values. There's no need for the values to be correct.</p>
+          <p>Let's say the probabilities have the following randomly selected values:</p>
+          <p><i>P(C=0)</i> = 0.7</p>
+          <p><i>P(G=0|C=0)</i> = 0.5</p>
+          <p><i>P(G=0|C=1)</i> = 0.4</p>
+          <p><i>P(B=0|C=0)</i> = 0.8</p>
+          <p><i>P(B=0|C=1)</i> = 0.3</p>
+          <p><i>P(E=0|C=0)</i> = 0.4</p>
+          <p><i>P(E=0|C=1)</i> = 0.5</p>
+          <p>Note that when choosing probabilities, it's best to choose them randomly even when you have beliefs. It's also best to avoid choosing 0 or 1, because it's possible the iterations of the E and M steps may get stuck.</p>
+       </div>
+       <div class="jumbotron page" id="page7">
+          <h1 class="cover-heading">E-step</i></h1>
+          <p>First, we use our expectations as our expected values for the zeroth iteration!</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.7</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.5</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.8</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.3</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.5</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>But what do we do with these values now?</p>
+       </div>
+       <div class="jumbotron page" id="page8">
+          <h1 class="cover-heading">M-step: Nodes with no parents</i></h1>
+          <p>If we knew the count of dogs from each company, the probability of a dog being from Company 0 would be the count of dogs from Company 0 over the total number of dogs.</p>
+          $$P(C=0) = \frac{count(C=0)}{T}$$
+          <p>Unfortunately, we don't have that information. But we can estimate this count by summing the probabilities of each of the dogs being from Company 0 given its traits. In other words, we want to find:</p>
+          $$count(C=0) = \sum_{t=1}^TP(C=0 | G=g^{(t)}, B=b^{(t)}, E=e^{(t)})$$
+          <p>Next, we can use product rule to transform the equation into:</p>
+          $$\sum_{t=1}^T\frac{P(C=0, G=g^{(t)}, B=b^{(t)}, E=e^{(t)})}{\sum_{c}P(C=c^{(t)}, G=g^{(t)}, B=b^{(t)}, E=e^{(t)})}$$
+          <p>Then, given the rules of conditional probability, this equation can be further simplified into:</p>
+          $$\sum_{t=1}^T \frac{P(C=0)P(G=g^{(t)}|C=0)P(B=b^{(t)}|C=0)P(E=e^{(t)}|C=0)}{\sum_{c}P(C=c)P(G=g^{(t)}|C=c)P(B=b^{(t)}|C=c)P(E=e^{(t)}|C=c)}$$
+          <p>Notice that we know all the terms in this equation &mdash; they are the expected values we randomly chose before!</p>
+       </div>
+       <div class="jumbotron page" id="page9">
+          <h1 class="cover-heading">M-step: Nodes with no parents</i></h1>
+          $$\sum_{t=1}^T \frac{P(C=0)P(G=g^{(t)}|C=0)P(B=b^{(t)}|C=0)P(E=e^{(t)}|C=0)}{\sum_{c}P(C=c)P(G=g^{(t)}|C=c)P(B=b^{(t)}|C=c)P(E=e^{(t)}|C=c)}$$
+          <p>The equation sums over <i>T</i>, but because we know the total counts of dogs with each combination of traits,
+             we can group like dogs together. We find the probability of a single dog being from Company 0 given its set of traits,
+             and multiply that probability by the total count of dogs with that combination of traits. We do this for all 8 combinations
+             of different traits and then sum these together to get the final count.</p>
+       </div>
+       <div class="jumbotron page" id="page10">
+          <h1 class="cover-heading">M-step: Nodes with parents</i></h1>
+          <p>However, applying the M-step to nodes with parents is different than nodes without parents. Let's try to find
+            the probability of a Male (G=0) dog given they are from Company 0. If we knew the number of male dogs from Company 0, we could calculate the
+            probability using the following equation:</p>
+          $$P(G=0|C=0) = \frac{count(G=0, C=0)}{count(C=0)}$$
+          <p>Unfortunately, we don't have that count. However, notice that <i>count(C=0)</i> is one of the terms we just solved for in the last step! Now all we need to do is
+          find the value of <i>count(G=0, C=0)</i>.</p>
+          <p>Solving for <i>count(G=0, C=0)</i> is very similar to calculating <i>count(C=0)</i>, except that G is 0 in the equation:</p>
+          $$count(G=0, C=0) = \sum_{t=1}^TI(0, g^{(t)})P(C=0 | G=0, B=b^{(t)}, E=e^{(t)})$$
+          <p>where</p>
+          $$P(C=0 | G=0, B=b^{(t)}, E=e^{(t)}) = \sum_{t=1}^T\frac{P(C=0)P(G=0|C=0)P(B=b^{(t)}|C=0)P(E=e^{(t)}|C=0)}{\sum_{c}P(C=c)P(G=0|C=c)P(B=b^{(t)}|C=c)P(E=e^{(t)}|C=c)}$$
+          <p>The primary difference otherwise is the I function, which is called an indicator function. It takes two parameters and checks to see if they the same. If they are, it returns 1, otherwise 0.
+             Because the summation sums over all <i>T</i> values but we are only interested in <i>t</i> values where <i>G</i> is 0, we use the indicator to only include <i>t</i>'s that have a <i>G</i> value of 0 in the summation.</p>
+       </div>
+       <div class="jumbotron page" id="page11">
+          <h1 class="cover-heading">First iteration</i></h1>
+          <p>Using the equations we just derived, we solve for the values of our parameters, filling in Iteration 1. </p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">Iter 1</th>
+                <th scope="col">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.7</td>
+                <td>0.5547</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.5</td>
+                <td>0.5807</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>0.3340</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.8</td>
+                <td>0.6188</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.3</td>
+                <td>0.1358</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>0.8262</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.5</td>
+                <td>0.8573</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+       </div>
+       <div class="jumbotron page" id="page12">
+          <h1 class="cover-heading">Estimating parameters</h1>
+          <p>And if we do the iteration once more...</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">Iter 1</th>
+                <th scope="col">Iter 2</th>
+                <th scope="col">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.7</td>
+                <td>0.5547</td>
+                <td>0.5494</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.5</td>
+                <td>0.5807</td>
+                <td>0.6308</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>0.3340</td>
+                <td>0.2757</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.8</td>
+                <td>0.6188</td>
+                <td>0.6372</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.3</td>
+                <td>0.1358</td>
+                <td>0.1191</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>0.8262</td>
+                <td>0.8313</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.5</td>
+                <td>0.8573</td>
+                <td>0.8507</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>But one or two iterations aren't enough for the values to converge. So what happens when we run the EM algorithm on the expected values over and over and over?</p>
+       </div>
+       <div class="jumbotron page" id="page13">
+          <h1 class="cover-heading">Estimating parameters</h1>
+          <p>If we iterate 5000 times, we see the following results:</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">Iter 1</th>
+                <th scope="col">Iter 2</th>
+                <th scope="col">...</th>
+                <th scope="col">Iter 4998</th>
+                <th scope="col">Iter 4999</th>
+                <th scope="col">Iter 5000</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.7</td>
+                <td>0.5547</td>
+                <td>0.5494</td>
+                <td>...</td>
+                <td>0.4911</td>
+                <td>0.4911</td>
+                <td>0.4911</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.5</td>
+                <td>0.5807</td>
+                <td>0.6308</td>
+                <td>...</td>
+                <td>0.9587</td>
+                <td>0.9587</td>
+                <td>0.9587</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>0.3340</td>
+                <td>0.2757</td>
+                <td>...</td>
+                <td>5.3372e-36</td>
+                <td>5.2568e-36</td>
+                <td>5.1776e-36</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.8</td>
+                <td>0.6188</td>
+                <td>0.6372</td>
+                <td>...</td>
+                <td>0.5852</td>
+                <td>0.5852</td>
+                <td>0.5852</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.3</td>
+                <td>0.1358</td>
+                <td>0.1191</td>
+                <td>...</td>
+                <td>0.2286</td>
+                <td>0.2286</td>
+                <td>0.2286</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>0.8262</td>
+                <td>0.8313</td>
+                <td>...</td>
+                <td>0.8122</td>
+                <td>0.8122</td>
+                <td>0.8122</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.5</td>
+                <td>0.8573</td>
+                <td>0.8507</td>
+                <td>...</td>
+                <td>0.8669</td>
+                <td>0.8669</td>
+                <td>0.8669</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>By the 5000th iteration, we see that the numbers have converged.</p>
+       </div>
+       <div class="jumbotron page" id="page14">
+          <h1 class="cover-heading">Does random really work?</h1>
+          <p>But what if we chose some other random values in the initial iteration? Let's try with these different random numbers:</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">...</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.6</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.6</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.2</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.1</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.2</td>
+                <td>...</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="jumbotron page" id="page15">
+          <h1 class="cover-heading">Does random really work?</h1>
+          <p>After running through the EM algorithm 5000 times, we see the following results:</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Parameters</th>
+                <th scope="col">Iter 0</th>
+                <th scope="col">Iter 1</th>
+                <th scope="col">Iter 2</th>
+                <th scope="col">...</th>
+                <th scope="col">Iter 4998</th>
+                <th scope="col">Iter 4999</th>
+                <th scope="col">Iter 5000</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><i>P(C=0)</i></td>
+                <td>0.6</td>
+                <td>0.5227</td>
+                <td>0.5232</td>
+                <td>...</td>
+                <td>0.4910</td>
+                <td>0.4910</td>
+                <td>0.4910</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=0)</i></td>
+                <td>0.4</td>
+                <td>0.4177</td>
+                <td>0.4421</td>
+                <td>...</td>
+                <td>0.9589</td>
+                <td>0.9589</td>
+                <td>0.9589</td>
+              </tr>
+              <tr>
+                <td><i>P(G=0|C=1)</i></td>
+                <td>0.6</td>
+                <td>0.5290</td>
+                <td>0.5024</td>
+                <td>...</td>
+                <td>1.2839e-35</td>
+                <td>1.264e-35</td>
+                <td>1.2456e-35</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=0)</i></td>
+                <td>0.2</td>
+                <td>0.4556</td>
+                <td>0.4333</td>
+                <td>...</td>
+                <td>0.5852</td>
+                <td>0.5852</td>
+                <td>0.5852</td>
+              </tr>
+              <tr>
+                <td><i>P(B=0|C=1)</i></td>
+                <td>0.1</td>
+                <td>0.3470</td>
+                <td>0.3714</td>
+                <td>...</td>
+                <td>0.2287</td>
+                <td>0.2287</td>
+                <td>0.2287</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=0)</i></td>
+                <td>0.2</td>
+                <td>0.7908</td>
+                <td>0.7958</td>
+                <td>...</td>
+                <td>0.8122</td>
+                <td>0.8122</td>
+                <td>0.8122</td>
+              </tr>
+              <tr>
+                <td><i>P(E=0|C=1)</i></td>
+                <td>0.4</td>
+                <td>0.8940</td>
+                <td>0.8886</td>
+                <td>...</td>
+                <td>0.8669</td>
+                <td>0.8669</td>
+                <td>0.8669</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Even though this set started with different initial expected values, they still ended up converging to very similar values.</p>
+       </div>
+       <div class="jumbotron page" id="page16">
+         <h1 class="cover-heading">And that's Expectation Maximization!</h1>
+         <p>Congratulations on finishing this! :)</p>
+      </div>
+       <ul id="pagination-demo" class="pagination-lg pull-right"></ul>
+    </div>
+
+    <!-- Page Content
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-center">
@@ -57,11 +612,14 @@
           </ul>
         </div>
       </div>
-    </div>
+    </div>-->
 
     <!-- Bootstrap core JavaScript -->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://www.solodev.com/assets/pagination/jquery.twbsPagination.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
+    <script src="home.js"></script>
+    <!-- <script src="algorithm.js"></script> -->
 
   </body>
 
